@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Tính số ngày trong tháng</title>
+    <style>
+        .container {
+            border: 1px solid #888;
+            padding: 15px;
+            width: 320px;
+            font-family: Arial, sans-serif;
+        }
+        input[type="number"] {
+            width: 160px;
+            padding: 4px;
+            margin-right: 8px;
+        }
+        button {
+            padding: 4px 10px;
+            cursor: pointer;
+        }
+        #ketQua {
+            margin-top: 15px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <input type="number" id="thang" min="1" max="12" placeholder="Nhập tháng (1-12)">
+        <button type="button" onclick="tinhSoNgay()">Tính số ngày</button>
+        <div id="ketQua"></div>
+    </div>
+
+    <script>
+        function tinhSoNgay() {
+            // Lấy giá trị tháng người dùng nhập và chuyển sang kiểu số nguyên
+            let thang = parseInt(document.getElementById("thang").value);
+            let thongBao = "";
+
+            // Sử dụng switch-case và nhóm nhiều case theo gợi ý
+            switch (thang) {
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                case 8:
+                case 10:
+                case 12:
+                    thongBao = "Tháng " + thang + " có 31 ngày";
+                    break;
+                case 2:
+                    thongBao = "Tháng 2 có 28 hoặc 29 ngày";
+                    break;
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    thongBao = "Tháng " + thang + " có 30 ngày";
+                    break;
+                default:
+                    thongBao = "Vui lòng nhập tháng hợp lệ (từ 1 đến 12)!";
+            }
+
+            // Hiển thị kết quả ra màn hình
+            document.getElementById("ketQua").innerText = thongBao;
+        }
+    </script>
+
+</body>
+</html>
