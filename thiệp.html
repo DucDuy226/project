@@ -1,0 +1,523 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Mời Lễ Hội Halloween 2026</title>
+    <!-- Nhúng thư viện jQuery theo yêu cầu đề bài -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #f5f5f5;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Hiệu ứng vật thể chuyển động (Thiệp mời sinh động) */
+        .floating-ghost {
+            position: fixed;
+            top: 12%;
+            left: 3%;
+            font-size: 42px;
+            z-index: 99;
+            pointer-events: none;
+            animation: floatGhost 5s ease-in-out infinite;
+        }
+
+        .floating-bat {
+            position: fixed;
+            top: 20%;
+            right: 4%;
+            font-size: 38px;
+            z-index: 99;
+            pointer-events: none;
+            animation: flyBat 6s linear infinite;
+        }
+
+        @keyframes floatGhost {
+            0%, 100% {
+                transform: translateY(0) rotate(-5deg);
+                opacity: 0.85;
+            }
+
+            50% {
+                transform: translateY(-25px) rotate(8deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes flyBat {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            25% {
+                transform: translate(-40px, 20px) scale(1.1);
+            }
+
+            50% {
+                transform: translate(-80px, -10px) scale(0.95);
+            }
+
+            75% {
+                transform: translate(-30px, -25px) scale(1.05);
+            }
+
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+        }
+
+        /* Header & Banner Thiệp mời */
+        header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(13,13,13,0.95)), url('images/bg.jpg');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            padding: 60px 20px 30px;
+            border-bottom: 3px solid #ff6600;
+        }
+
+            header h1 {
+                font-size: 42px;
+                color: #ff6600;
+                text-transform: uppercase;
+                letter-spacing: 3px;
+                text-shadow: 0 0 15px rgba(255, 102, 0, 0.8);
+                animation: pulseGlow 2s infinite alternate;
+            }
+
+        @keyframes pulseGlow {
+            from {
+                text-shadow: 0 0 10px #ff6600;
+            }
+
+            to {
+                text-shadow: 0 0 25px #ffaa00, 0 0 35px #ff3300;
+            }
+        }
+
+        header p.invite-sub {
+            font-size: 18px;
+            color: #ffffff;
+            margin-top: 10px;
+        }
+
+        /* Thanh điều hướng thống nhất (Template) */
+        nav {
+            background-color: #1a1a1a;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 14px 10px;
+            border-bottom: 1px solid #333;
+        }
+
+            nav a {
+                color: #ffffff;
+                text-decoration: none;
+                font-weight: bold;
+                padding: 8px 16px;
+                border-radius: 5px;
+                transition: 0.3s;
+            }
+
+                nav a:hover {
+                    background-color: #ff6600;
+                    color: #000000;
+                }
+
+        /* Nút phát nhạc nền */
+        .music-bar {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+            .music-bar button {
+                background-color: #ff6600;
+                color: #000;
+                border: none;
+                padding: 8px 18px;
+                font-weight: bold;
+                border-radius: 20px;
+                cursor: pointer;
+            }
+
+        /* Khung nội dung chính (Layout dùng Flexbox/Grid, không dùng Table) */
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        section {
+            background-color: #181818;
+            border: 1px solid #2e2e2e;
+            border-left: 5px solid #ff6600;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 35px;
+        }
+
+            section h2 {
+                color: #ff6600;
+                font-size: 24px;
+                margin-bottom: 18px;
+                border-bottom: 1px dashed #444;
+                padding-bottom: 8px;
+            }
+
+        /* 1. Thành viên nhóm */
+        .team-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .member-card {
+            flex: 1;
+            min-width: 240px;
+            background-color: #222;
+            padding: 18px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+
+            .member-card h3 {
+                color: #ff8533;
+                margin-bottom: 6px;
+            }
+
+        /* 3. Gian hàng sản phẩm (List + Chi tiết jQuery) */
+        .product-list {
+            list-style: none;
+        }
+
+        .product-item {
+            background-color: #222;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            border: 1px solid #333;
+            overflow: hidden;
+        }
+
+        .product-title {
+            padding: 14px 18px;
+            font-weight: bold;
+            color: #ff8533;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .product-title:hover {
+                background-color: #2b2b2b;
+            }
+
+        .product-detail {
+            display: none; /* Ẩn mặc định, bấm vào sẽ trượt xuống bằng jQuery */
+            padding: 15px 18px;
+            background-color: #141414;
+            border-top: 1px solid #333;
+            color: #e0e0e0;
+        }
+
+        /* 4. Bộ sưu tập hình ảnh */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-box {
+            background-color: #222;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #333;
+            transition: transform 0.3s;
+        }
+
+            .gallery-box:hover {
+                transform: scale(1.06);
+                border-color: #ff6600;
+            }
+
+            .gallery-box img {
+                width: 100%;
+                height: 140px;
+                object-fit: contain;
+                margin-bottom: 8px;
+            }
+
+        /* 5 & 6. Hai cột Form Đăng ký & Liên hệ */
+        .forms-wrapper {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+            .forms-wrapper > section {
+                flex: 1;
+                min-width: 300px;
+                margin-bottom: 0;
+            }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                color: #ddd;
+                font-size: 14px;
+            }
+
+            .form-group input, .form-group select, .form-group textarea {
+                width: 100%;
+                padding: 10px;
+                background-color: #262626;
+                border: 1px solid #444;
+                border-radius: 5px;
+                color: #ffffff;
+            }
+
+                .form-group input:focus, .form-group textarea:focus {
+                    outline: none;
+                    border-color: #ff6600;
+                }
+
+        .btn-submit {
+            background-color: #ff6600;
+            color: #000000;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 15px;
+        }
+
+            .btn-submit:hover {
+                background-color: #ff8533;
+            }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #111;
+            border-top: 2px solid #ff6600;
+            color: #aaa;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Vật thể chuyển động trang trí -->
+    <div class="floating-ghost">&#128123;</div>
+    <div class="floating-bat">&#129415;</div>
+
+    <!-- Âm thanh nền (tự chọn file mp3 nếu có) -->
+    <audio id="bgMusic" loop>
+        <source src="images/halloween.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Header Thiệp mời -->
+    <header>
+        <h1>&#127875; ĐÊM HỘI HÓA TRANG HALLOWEEN &#127875;</h1>
+        <p class="invite-sub">Trân trọng kính mời bạn tham dự bữa tiệc huyền bí vào lúc <b>19:00 - Ngày 31/10</b></p>
+        <div class="music-bar">
+            <button id="toggleMusic">&#127925; Bật / Tắt Nhạc Kinh Dị</button>
+        </div>
+    </header>
+
+    <!-- Menu điều hướng -->
+    <nav>
+        <a href="#nhom">Thành viên nhóm</a>
+        <a href="#lichsu">Lịch sử Halloween</a>
+        <a href="#gianhang">Gian hàng sản phẩm</a>
+        <a href="#bosuutap">Bộ sưu tập ảnh</a>
+        <a href="#dangky">Đăng ký tham gia</a>
+        <a href="#lienhe">Liên hệ</a>
+    </nav>
+
+    <div class="container">
+        <!-- 1. GIỚI THIỆU THÀNH VIÊN NHÓM -->
+        <section id="nhom">
+            <h2>1. Ban Tổ Chức & Thành Viên Nhóm</h2>
+            <div class="team-grid">
+                <div class="member-card">
+                    <h3>Trương Thị Kim Nguyên</h3>
+                    <p>Nhóm trưởng &bull; Thiết kế giao diện</p>
+                    <p><small>MSSV: 52.01.104.067</small></p>
+                </div>
+                <div class="member-card">
+                    <h3>Trần Vũ Lan Phương</h3>
+                    <p>Phụ trách nội dung & Hình ảnh</p>
+                    <p><small>MSSV: 52.01.104.148</small></p>
+                </div>
+                <div class="member-card">
+                    <h3>Nguyễn Huỳnh Yến Nhi</h3>
+                    <p>Hiệu ứng jQuery & Âm thanh</p>
+                    <p><small>MSSV: 52.01.104.140</small></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. GIỚI THIỆU LỊCH SỬ HALLOWEEN -->
+        <section id="lichsu">
+            <h2>2. Lịch Sử Lễ Hội Halloween</h2>
+            <p>
+                Halloween (viết tắt của <i>All Hallows' Evening</i>) là một lễ hội truyền thống được tổ chức vào ngày <b>31 tháng 10</b> hàng năm. Lễ hội bắt nguồn từ lễ Samhain cổ xưa của người Celt sinh sống tại vùng đất ngày nay là Ireland, Anh và miền bắc nước Pháp.
+            </p>
+            <br>
+            <p>
+                Người xưa tin rằng vào đêm 31/10, ranh giới giữa thế giới người sống và người chết trở nên mờ nhạt nhất. Ngày nay, Halloween trở thành dịp lễ hội hóa trang vui nhộn với các biểu tượng đặc trưng như <b>đèn lồng bí ngô Jack-o'-lantern</b>, trò chơi <i>"Cho kẹo hay bị ghẹo" (Trick-or-Treat)</i> và những bữa tiệc hóa trang đầy màu sắc.
+            </p>
+        </section>
+
+        <!-- 3. GIAN HÀNG SẢN PHẨM HALLOWEEN (Dùng List & jQuery xem chi tiết) -->
+        <section id="gianhang">
+            <h2>3. Gian Hàng Sản Phẩm Halloween <small style="font-size: 13px; color: #ccc;">(Nhấn vào từng món để xem chi tiết)</small></h2>
+            <ul class="product-list">
+                <li class="product-item">
+                    <div class="product-title">
+                        <span>&#127875; Đèn Lồng Bí Ngô Phát Sáng</span>
+                        <span>85.000đ &#9662;</span>
+                    </div>
+                    <div class="product-detail">
+                        Chất liệu nhựa cao cấp an toàn, tích hợp đèn LED đổi màu bên trong, thích hợp trang trí bàn tiệc hoặc cầm tay khi đi hóa trang.
+                    </div>
+                </li>
+                <li class="product-item">
+                    <div class="product-title">
+                        <span>&#129497; Áo Choàng Phù Thủy & Mũ Chóp Nhọn</span>
+                        <span>150.000đ &#9662;</span>
+                    </div>
+                    <div class="product-detail">
+                        Bộ trang phục hóa trang tông đen - cam nổi bật, vải phi bóng mềm mại, phù hợp cho cả nam và nữ tham dự đêm hội.
+                    </div>
+                </li>
+                <li class="product-item">
+                    <div class="product-title">
+                        <span>&#127852; Giỏ Kẹo "Trick or Treat" Huyền Bí</span>
+                        <span>60.000đ &#9662;</span>
+                    </div>
+                    <div class="product-detail">
+                        Gồm 30 viên kẹo dẻo hình mắt quỷ, răng ma cà rồng và sô-cô-la bí ngô đựng trong giỏ hình đầu lâu mini.
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 4. BỘ SƯU TẬP HÌNH ẢNH KINH DỊ -->
+        <section id="bosuutap">
+            <h2>4. Bộ Sưu Tập Hình Ảnh Lễ Hội</h2>
+            <div class="gallery-grid">
+                <!-- Lấy hình từ thư mục giải nén halloween.zip -->
+                <div class="gallery-box">
+                    <img src="images/pumpkin.png" alt="Bí ngô ma quái" onerror="this.src='https://cdn-icons-png.flaticon.com/512/685/685842.png'">
+                    <p>Bí Ngô Ma Quái</p>
+                </div>
+                <div class="gallery-box">
+                    <img src="images/ghost.png" alt="Bóng ma đêm" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1234/1234625.png'">
+                    <p>Bóng Ma Đêm</p>
+                </div>
+                <div class="gallery-box">
+                    <img src="images/cat.png" alt="Mèo đen phù thủy" onerror="this.src='https://cdn-icons-png.flaticon.com/512/616/616430.png'">
+                    <p>Mèo Đen Phù Thủy</p>
+                </div>
+                <div class="gallery-box">
+                    <img src="images/castle.png" alt="Lâu đài ma ám" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2316/2316838.png'">
+                    <p>Lâu Đài Ma Ám</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5 & 6. FORM ĐĂNG KÝ THAM GIA & FORM LIÊN HỆ -->
+        <div class="forms-wrapper">
+            <section id="dangky">
+                <h2>5. Đăng Ký Tham Gia Lễ Hội</h2>
+                <form onsubmit="alert('Đăng ký tham gia lễ hội thành công!'); return false;">
+                    <div class="form-group">
+                        <label>Họ và tên khách mời:</label>
+                        <input type="text" required placeholder="Nhập họ tên của bạn...">
+                    </div>
+                    <div class="form-group">
+                        <label>Số điện thoại:</label>
+                        <input type="tel" required placeholder="Nhập số điện thoại...">
+                    </div>
+                    <div class="form-group">
+                        <label>Trang phục hóa trang dự kiến:</label>
+                        <select>
+                            <option>Phù thủy / Pháp sư</option>
+                            <option>Ma cà rồng (Dracula)</option>
+                            <option>Xác ướp Ai Cập</option>
+                            <option>Nhân vật tự do</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-submit">Xác Nhận Tham Dự</button>
+                </form>
+            </section>
+
+            <section id="lienhe">
+                <h2>6. Liên Hệ Ban Tổ Chức</h2>
+                <form onsubmit="alert('Đã gửi lời nhắn đến Ban tổ chức!'); return false;">
+                    <div class="form-group">
+                        <label>Email của bạn:</label>
+                        <input type="email" required placeholder="example@gmail.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Câu hỏi / Lời nhắn:</label>
+                        <textarea rows="4" required placeholder="Nhập nội dung cần hỗ trợ..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Gửi Liên Hệ</button>
+                </form>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Thiết kế Web - Thiệp Mời Lễ Hội Halloween | Tông màu Cam - Đen - Trắng
+    </footer>
+
+    <!-- Xử lý jQuery cho danh sách gian hàng & âm thanh -->
+    <script>
+        $(document).ready(function() {
+            // Bấm vào tên sản phẩm để đóng/mở chi tiết mượt mà
+            $(".product-title").click(function() {
+                $(this).next(".product-detail").slideToggle(300);
+            });
+
+            // Bật/tắt nhạc nền
+            const music = document.getElementById("bgMusic");
+            $("#toggleMusic").click(function() {
+                if (music.paused) {
+                    music.play();
+                    $(this).text("🔇 Tắt Nhạc Kinh Dị");
+                } else {
+                    music.pause();
+                    $(this).text("🎵 Bật Nhạc Kinh Dị");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
