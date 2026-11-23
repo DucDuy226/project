@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Tra cứu giá hoa quả</title>
+    <style>
+        .box {
+            border: 1px solid #888;
+            padding: 15px 25px;
+            width: 300px;
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        input[type="text"] {
+            width: 170px;
+            padding: 4px;
+        }
+        button {
+            padding: 4px 10px;
+            cursor: pointer;
+        }
+        #ket_qua {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h2>Giá hoa quả</h2>
+        <div class="controls">
+            <input type="text" id="ten_hoa_qua" placeholder="Nhập tên hoa quả">
+            <button type="button" onclick="xemGia()">Xem giá</button>
+        </div>
+        <div id="ket_qua"></div>
+    </div>
+
+    <script>
+        function xemGia() {
+            let ten = document.getElementById("ten_hoa_qua").value.trim();
+            let ketQua = "";
+
+            switch (ten) {
+                case "Ổi":
+                case "Dưa Hấu":
+                    ketQua = "20000 VNĐ/kg";
+                    break;
+                case "Táo":
+                    ketQua = "30000 VNĐ/kg";
+                    break;
+                case "Cam":
+                case "Chôm Chôm":
+                    ketQua = "40000 VNĐ/kg";
+                    break;
+                case "Măng Cụt":
+                    ketQua = "50000 VNĐ/kg";
+                    break;
+                default:
+                    ketQua = "Tìm không thấy";
+            }
+
+            document.getElementById("ket_qua").innerText = ketQua;
+        }
+    </script>
+
+</body>
+</html>
