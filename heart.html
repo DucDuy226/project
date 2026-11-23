@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Bài 3 - Vẽ hình trái tim bằng Canvas</title>
+</head>
+<body bgcolor="#FFF0F5">
+    <center>
+        <h2>VẼ HÌNH TRÁI TIM BẰNG THẺ &lt;CANVAS&gt;</h2>
+        <!-- Khung vẽ Canvas kích thước 400x400 -->
+        <canvas id="myCanvas" width="400" height="400" style="border: 2px solid #E91E63; background-color: #FFFFFF;">
+            Trình duyệt của bạn không hỗ trợ thẻ canvas.
+        </canvas>
+    </center>
+
+    <script>
+        // Lấy đối tượng canvas và ngữ cảnh vẽ 2D
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+
+        // Bắt đầu nét vẽ hình trái tim
+        ctx.beginPath();
+
+        // Điểm lõm phía trên ở giữa trái tim (x = 200, y = 130)
+        ctx.moveTo(200, 130);
+
+        // Vẽ nửa đường cong bên trái xuống đỉnh nhọn phía dưới (200, 310)
+        ctx.bezierCurveTo(200, 100, 90, 70, 90, 160);
+        ctx.bezierCurveTo(90, 230, 160, 270, 200, 310);
+
+        // Vẽ nửa đường cong bên phải từ đỉnh nhọn lên lại điểm lõm ban đầu
+        ctx.bezierCurveTo(240, 270, 310, 230, 310, 160);
+        ctx.bezierCurveTo(310, 70, 200, 100, 200, 130);
+
+        // Tô màu đỏ hồng cho trái tim và vẽ viền
+        ctx.fillStyle = "#FF1744";
+        ctx.fill();
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = "#B71C1C";
+        ctx.stroke();
+    </script>
+</body>
+</html>
